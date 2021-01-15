@@ -1,7 +1,7 @@
 {
 	"common": {
 		"name": "w-vk",
-		"version": "1.0.1",
+		"version": "1.0.2",
 		"news": {
 			"0.0.1": {
 				"en": "initial release",
@@ -61,6 +61,7 @@
 		"connectionType": "cloud",
 		"dataSource": "push",
 		"materialize": true,
+    "blockly": true,
 		"dependencies": [
 			{
 				"js-controller": ">=2.0.0"
@@ -68,9 +69,22 @@
 		]
 	},
 	"native": {
-		"option1": true,
-		"option2": "42"
+		"token": "",
+		"uids": ""
 	},
 	"objects": [],
-	"instanceObjects": []
+	"instanceObjects": [
+        {
+            "_id": "sendMessage",
+            "type": "state",
+            "common": {
+                "name": "Send message",
+                "write": true,
+                "read": true,
+                "type": "string",
+                "role": "state"
+            },
+            "native": {}
+        }
+    ]
 }
