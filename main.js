@@ -153,9 +153,9 @@ class WVk extends utils.Adapter {
 	sendMessage(message) {
 		this.log.info("VK: " + message);
 		if(this.config.uids) {
-			let uids = this.config.uids.split(',');
 			try {
-				for(var uid in uids) {
+				let uids = this.config.uids.split(',');
+				uids.forEach(function(uid){
 					let url = 'https://api.vk.com/method/' 
 						+ 'messages.send'
 						+ '?access_token=' + this.config.token
@@ -165,7 +165,7 @@ class WVk extends utils.Adapter {
 						+ '&message=' + encodeURI(message);
 					this.log.debug('Call ' + url);
 					request(url).on("error", function(e) { this.log.error(e); });
-				}
+				});
 			}
 			catch (e) { console.error(e); }
 		}
