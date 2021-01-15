@@ -1,0 +1,76 @@
+{
+	"common": {
+		"name": "w-vk",
+		"version": "0.0.1",
+		"news": {
+			"0.0.1": {
+				"en": "initial release",
+				"de": "Erstveröffentlichung",
+				"ru": "Начальная версия",
+				"pt": "lançamento inicial",
+				"nl": "Eerste uitgave",
+				"fr": "Première version",
+				"it": "Versione iniziale",
+				"es": "Versión inicial",
+				"pl": "Pierwsze wydanie",
+				"zh-cn": "首次出版"
+			}
+		},
+		"title": "w-VK",
+		"titleLang": {
+			"en": "w-VK",
+			"de": "w-VK",
+			"ru": "w-VK",
+			"pt": "w-VK",
+			"nl": "w-VK",
+			"fr": "w-VK",
+			"it": "w-VK",
+			"es": "w-VK",
+			"pl": "w-VK",
+			"zh-cn": "瓦克"
+		},
+		"desc": {
+			"en": "w-vk",
+			"de": "w-vk",
+			"ru": "w-vk",
+			"pt": "w-vk",
+			"nl": "w-vk",
+			"fr": "w-vk",
+			"it": "w-vk",
+			"es": "w-vk",
+			"pl": "w-vk",
+			"zh-cn": "-"
+		},
+		"authors": [
+			"Wrun <wrun@mail.ru>"
+		],
+		"keywords": [
+			"vk messages"
+		],
+		"license": "MIT",
+		"platform": "Javascript/Node.js",
+		"main": "main.js",
+		"icon": "w-vk.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/Wrun/ioBroker.w-vk/master/admin/w-vk.png",
+		"readme": "https://github.com/Wrun/ioBroker.w-vk/blob/master/README.md",
+		"loglevel": "info",
+		"mode": "daemon",
+		"type": "messaging",
+		"compact": true,
+		"connectionType": "cloud",
+		"dataSource": "push",
+		"materialize": true,
+		"dependencies": [
+			{
+				"js-controller": ">=2.0.0"
+			}
+		]
+	},
+	"native": {
+		"option1": true,
+		"option2": "42"
+	},
+	"objects": [],
+	"instanceObjects": []
+}
