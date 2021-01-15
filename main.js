@@ -26,7 +26,7 @@ class WVk extends utils.Adapter {
 		this.on("ready", this.onReady.bind(this));
 		this.on("stateChange", this.onStateChange.bind(this));
 		// this.on("objectChange", this.onObjectChange.bind(this));
-		// this.on("message", this.onMessage.bind(this));
+		this.on("message", this.onMessage.bind(this));
 		this.on("unload", this.onUnload.bind(this));
 	}
 
@@ -135,12 +135,13 @@ class WVk extends utils.Adapter {
 			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);			
 			
 			if (state && !state.ack && state.val && this.config.token) {
-                if (this.config.uid) {
+                if (this.config.uids) {
+										let uids = this.config.uids.split(',');
                     // The state was changed
                     this.log.debug(`Sending message "${state.val}" to default number "${this.config.uid}"`);
                     this.sendMessage(state.val);
                 } else {
-                    this.log.error('Please set VK UID.');
+                    this.log.error('Please set VK UIDs.');
                 }
             }
 			
@@ -152,14 +153,14 @@ class WVk extends utils.Adapter {
 	
 	sendMessage(message) {
 		this.log.info("VK: " + message);
-		if(this.config.uid > 0) {
+		if(this.config.uids > 0) {
 			try {
 				let url = 'https://api.vk.com/method/' 
 					+ 'messages.send'
 					+ '?access_token=' + this.config.token
 					+ '&v=' + '5.110'
 					+ '&random_id=' + (new Date() / 1000)
-					+ '&peer_id=' + this.config.uid
+					+ '&peer_id=' + this.config.uids
 					+ '&message=' + encodeURI(message);
 				this.log.debug('Call ' + url);
 				request(url).on("error", function(e) { this.log.error(e); });
@@ -174,17 +175,18 @@ class WVk extends utils.Adapter {
 	//  * Using this method requires "common.messagebox" property to be set to true in io-package.json
 	//  * @param {ioBroker.Message} obj
 	//  */
-	// onMessage(obj) {
-	// 	if (typeof obj === "object" && obj.message) {
-	// 		if (obj.command === "send") {
-	// 			// e.g. send email or pushover or whatever
-	// 			this.log.info("send command");
+	onMessage(obj) {
+	 	if (typeof obj === "object" && obj.message) {
+	 		if (obj.command === "send") {
+	 			// e.g. send email or pushover or whatever
+	 			this.log.info("send command");
+				this.sendMessage(obj.message);
 
-	// 			// Send response in callback if required
-	// 			if (obj.callback) this.sendTo(obj.from, obj.command, "Message received", obj.callback);
-	// 		}
-	// 	}
-	// }
+	 			// Send response in callback if required
+	 			if (obj.callback) this.sendTo(obj.from, obj.command, "Message received", obj.callback);
+	 		}
+	 	}
+	}
 
 }
 
