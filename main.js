@@ -7,9 +7,11 @@
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 const utils = require("@iobroker/adapter-core");
+const request = require('request');
 
 // Load your modules here, e.g.:
 // const fs = require("fs");
+
 
 class WVk extends utils.Adapter {
 
@@ -128,10 +130,39 @@ class WVk extends utils.Adapter {
 	onStateChange(id, state) {
 		if (state) {
 			// The state was changed
-			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);			
+			
+			if (state && !state.ack && state.val && adapter.config.token) {
+                if (adapter.config.uid) {
+                    // The state was changed
+                    adapter.log.debug(`Sending message "${state.val}" to default number "${adapter.config.uid}"`);
+                    sendMessage(state.val);
+                } else {
+                    adapter.log.error('Please set VK UID.');
+                }
+            }
+			
 		} else {
 			// The state was deleted
 			this.log.info(`state ${id} deleted`);
+		}
+	}
+	
+	sendMessage(message) {
+		adapter.log.info("VK: " + message);
+		if(this.config.uid > 0) {
+			try {
+				let url = 'https://api.vk.com/method/' 
+					+ 'messages.send'
+					+ '?access_token=' + adapter.config.token
+					+ '&v=' + '5.110'
+					+ '&random_id=' + (new Date() / 1000)
+					+ '&peer_id=' + adapter.config.uid
+					+ '&message=' + encodeURI(message);
+				adapter.log.debug('Call ' + url);
+				request(url).on("error", function(e) { this.log.error(e); });
+			}
+			catch (e) { console.error(e); }
 		}
 	}
 
