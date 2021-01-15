@@ -138,7 +138,7 @@ class WVk extends utils.Adapter {
                 if (this.config.uid) {
                     // The state was changed
                     this.log.debug(`Sending message "${state.val}" to default number "${this.config.uid}"`);
-                    sendMessage(state.val);
+                    this.sendMessage(state.val);
                 } else {
                     this.log.error('Please set VK UID.');
                 }
