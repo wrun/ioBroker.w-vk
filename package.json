@@ -2,10 +2,7 @@
   "name": "iobroker.w-vk",
   "version": "0.0.1",
   "description": "w-vk",
-  "author": {
-    "name": "Wrun",
-    "email": "wrun@mail.ru"
-  },
+  "author": "Wrun <wrun@mail.ru>",
   "homepage": "https://github.com/Wrun/ioBroker.w-vk",
   "license": "MIT",
   "keywords": [
@@ -52,5 +49,8 @@
   "bugs": {
     "url": "https://github.com/Wrun/ioBroker.w-vk/issues"
   },
-  "readmeFilename": "README.md"
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  }
 }
