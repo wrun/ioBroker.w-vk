@@ -136,9 +136,8 @@ class WVk extends utils.Adapter {
 			
 			if (state && !state.ack && state.val && this.config.token) {
                 if (this.config.uids) {
-										let uids = this.config.uids.split(',');
                     // The state was changed
-                    this.log.debug(`Sending message "${state.val}" to default number "${this.config.uid}"`);
+                    this.log.debug(`Sending message "${state.val}" to default number "${this.config.uids}"`);
                     this.sendMessage(state.val);
                 } else {
                     this.log.error('Please set VK UIDs.');
@@ -153,17 +152,20 @@ class WVk extends utils.Adapter {
 	
 	sendMessage(message) {
 		this.log.info("VK: " + message);
-		if(this.config.uids > 0) {
+		if(this.config.uids) {
+			let uids = this.config.uids.split(',');
 			try {
-				let url = 'https://api.vk.com/method/' 
-					+ 'messages.send'
-					+ '?access_token=' + this.config.token
-					+ '&v=' + '5.110'
-					+ '&random_id=' + (new Date() / 1000)
-					+ '&peer_id=' + this.config.uids
-					+ '&message=' + encodeURI(message);
-				this.log.debug('Call ' + url);
-				request(url).on("error", function(e) { this.log.error(e); });
+				for(var uid in uids) {
+					let url = 'https://api.vk.com/method/' 
+						+ 'messages.send'
+						+ '?access_token=' + this.config.token
+						+ '&v=' + '5.110'
+						+ '&random_id=' + (new Date() / 1000)
+						+ '&peer_id=' + uid
+						+ '&message=' + encodeURI(message);
+					this.log.debug('Call ' + url);
+					request(url).on("error", function(e) { this.log.error(e); });
+				}
 			}
 			catch (e) { console.error(e); }
 		}

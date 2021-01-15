@@ -23,7 +23,7 @@ Blockly.Sendto.blocks['w-vk'] =
     + '             <field name="TEXT">text</field>'
     + '         </shadow>'
     + '     </value>'
-    + '     <value name="PHONE">'
+    + '     <value name="UIDS">'
     + '     </value>'
     + '     <value name="LOG">'
     + '     </value>'
